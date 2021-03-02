@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="row">
+        <div class="col s5 lg 6">
+            <div class="card">
+                <div class="car-content">
+                    <div class="row">
+                        <form [formGroup]="form" (ngSubmit)="addEmployee(form)">
+ 
+                            <div class="input-field col s12">
+                                <input type="hidden" formControlName="id" name="id">
+                            </div>
+    
+                            <div class="input-field col s10">
+                                <input type="text" formControlName="name" name="name" placeholder="Enter you name">
+                                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                                    <div class="alert-danger">
+                                        <div class="caontiner-danger" *ngIf="name.errors.required">
+                                            <span><b>* Required</b></span>
+                                        </div>
+                                        <div class="caontiner-danger" *ngIf="name.errors.minlength">
+                                            <span>* Minimum length 4</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+ 
+                            <div class="input-field col s10">
+                                <input type="text" formControlName="position" name="position" placeholder="Enter you postion">
+                                <div *ngIf="position.invalid && (position.dirty || position.touched)">
+                                    <div class="alert-danger">
+                                        <div class="caontiner-danger" *ngIf="position.errors.required">
+                                            <span>* Required</span>
+                                        </div>
+                                        <div class="caontiner-danger" *ngIf="position.errors.minlength">
+                                            <span>* Minimum length 4</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-field col s10">
+                                <input type="text" formControlName="office" name="office" placeholder="Enter you office">
+                                <div *ngIf="office.invalid && (office.dirty || office.touched)">
+                                    <div class="alert-danger">
+                                        <div class="caontiner-danger" *ngIf="office.errors.required">
+                                            <span>* Required</span>
+                                        </div>
+                                        <div class="caontiner-danger" *ngIf="office.errors.minlength">
+                                            <span>* Minimum length 4</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-field col s10">
+                                <input type="number" formControlName="salary" name="salary" placeholder="Enter you salary">
+                                <div *ngIf="salary.invalid && (salary.dirty || salary.touched)">
+                                    <div class="alert-danger">
+                                        <span>* Required</span>
+                                    </div>
+                                </div>
+                            </div>                    
+                            
+                        </form>
+                        <div class="card-action">
+                            <div class="input-field col 12 right" >
+                                <button class="btn right" [disabled]='form.invalid' (click)="addEmployee(form)">Save</button>
+                                <button class="btn right" style="margin-left: 2px;" (click)="resetForm()">Clean</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s7">
+            <table class="foat-rigth">
+                <thead>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let emp of employeeService.employees">
+                        <td>{{ emp.name }}</td>
+                        <td>{{ emp.position }}</td>
+                        <td>{{ emp.office }}</td>
+                        <td>
+                            <a (click)="setDataIntoForm(emp, form)">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a (click)="deleteEmployee(emp._id)">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

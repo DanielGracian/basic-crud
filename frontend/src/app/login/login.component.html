@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col s5 lg 6">
+            <div class="card">
+                <div class="car-content">
+                    <div class="row">
+                        <form [formGroup]="form" (ngSubmit)="login(form)">
+                            <div class="input-field col s10">
+                                <input type="text" formControlName="userName" name="userName" placeholder="ejemplo@ejemplo.com">
+                                <div *ngIf="userName.invalid && (userName.dirty || userName.touched)">
+                                    <div class="alert-danger">
+                                        <div class="caontiner-danger" *ngIf="userName.errors.required">
+                                            <span><b>* Required</b></span>
+                                        </div>
+                                        <div class="caontiner-danger" *ngIf="userName.errors.minlength">
+                                            <span>* Minimum length 4</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-field col s10">
+                                <input type="text" formControlName="password" name="password">
+                                <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                                    <div class="alert-danger">
+                                        <div class="caontiner-danger" *ngIf="password.errors.required">
+                                            <span><b>* Required</b></span>
+                                        </div>
+                                        <div class="caontiner-danger" *ngIf="password.errors.minlength">
+                                            <span>* Minimum length 4</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="card-action">
+                            <div class="input-field col 12 right" >
+                                <button class="btn right" [disabled]='form.invalid' (click)="login(form)">Iniciar Sesion</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
