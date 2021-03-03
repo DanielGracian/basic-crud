@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EmployeeService } from '../services/employee.service';
-import { authService } from '../services/auth.service';
+import { EmployeeService } from '../../services/employee.service';
+import { authService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 declare var M: any;
