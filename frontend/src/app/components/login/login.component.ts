@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(form.value.userName, form.value.password).subscribe(data => {
       localStorage.setItem('isLogged', '1');
       localStorage.setItem('token', data['accessToken']);
-      this.router.navigate(['api/employees']);
+      this.router.navigate(['employees']);
     }), (err) => {
       M.toast({ html: 'An error has ocurred!' });
     };

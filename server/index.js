@@ -26,7 +26,7 @@ app.use('/api', require('./routes/employeeRoutes'));
 
 //default err
 app.use((error, req, res, next) => {
-    const status = error.statusCode || 500;
+    const status = error.http_code || 500;
     const message = error.message;
     const data = error.data;
     res.status(status).json({ message: message, data: data });
@@ -36,4 +36,5 @@ app.use((error, req, res, next) => {
 app.listen(app.get('port'), ()=>{
     console.log('Server on port: ' + app.get('port'));
 });
+
 

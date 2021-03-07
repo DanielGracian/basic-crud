@@ -5,8 +5,11 @@ import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'api/employees', component: EmployeesComponent },
+  { path: 'employees', component: EmployeesComponent },
+  { path: 'register', component: EmployeesComponent },
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

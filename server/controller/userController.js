@@ -1,9 +1,16 @@
 const user = require('../models/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
+const SECRET_KEY = 'somesecret@';
 exports.createUser = async (req, res, next) => {
-   try{
+    
+    try{
+        if(req.body.email.indexOf('@') == -1){
+            const err = new Error('Email is not valid!');
+            err.http_code = 409;    
+            next(err);
+        };
+
         const newUser = new user({
             name: req.body.name,
             email: req.body.email,
@@ -14,9 +21,9 @@ exports.createUser = async (req, res, next) => {
         res.send({newUser});
        
     } catch (error) {
-        const err = '';
-        err.statusCode = 400;
-        err.message = 'Something is wrong!';
+        const err = new Error('Something is wrong!');
+        err.http_code = 400;
+     
         next(err);
     }
 }
@@ -30,16 +37,15 @@ exports.loginUser = (req, res, next) => {
     user.findOne({ email: userData.email }, (err, user) => {
         if (err) res.status(500).send('Server error!');
         if (!user) {
-            const err = '';
-            err.statusCode = 409;
-            err.message = 'Something is wrong!';
+            const err = new Error('Something is wrong!');
+            err.http_code = 409;        
             next(err);
         } else {
             try {
             const resultPassword = bcrypt.compareSync(userData.password, user.password);
             if (resultPassword) {
                 const expiresIn = 24 * 60 * 60;
-                const accessToken = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {expiresIn: expiresIn});           
+                const accessToken = jwt.sign({ id: user.id }, SECRET_KEY, {expiresIn: expiresIn});           
                 const data = {
                     name: user.name,
                     email: user.email,
@@ -49,9 +55,9 @@ exports.loginUser = (req, res, next) => {
                 res.json( data );
             }
            } catch (error) {
-                const err = '';
-                err.statusCode = 400;
-                err.message = 'Something is wrong!';
+            console.log(error);   
+            const err = new Error('Something is wrong!');
+                err.http_code = 400;
                 next(err);
            }
         }

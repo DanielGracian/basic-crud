@@ -6,7 +6,7 @@
 <div *ngIf='this.isLogin(), else loggedOut'>
   <app-employees></app-employees>
 </div>
-<ng-template #loggedOut>Content to render when condition is false.
+<ng-template #loggedOut>
   <app-login></app-login> 
 </ng-template>
 

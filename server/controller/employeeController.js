@@ -10,9 +10,8 @@ exports.getEmployeeById = async(req, res, next) =>{
         const employee = await EmployeeModel.findById(req.params.id);      
         res.json({employee}) 
     } catch (error) {
-        const err = '';
-        err.statusCode = 400;
-        err.message = 'Something is wrong!';
+        const err = new Error('Something is wrong!');
+        err.http_code = 409;
         next(err);
     }
 };
@@ -29,29 +28,30 @@ exports.editEmployee = async(req, res, next) =>{
         res.json({status: 'Employee updated'});    
 
     } catch (error) {
-        const err = '';
-        err.statusCode = 409;
-        err.message = 'Something is wrong!';
+        const err = new Error('Something is wrong!');
+        err.http_code = 409;
         next(err);
     } 
 };
 
 exports.createEmployee = async (req, res, next)=>{
+ 
     try {
+          
         const employee = new EmployeeModel({        
             name: req.body.name,
             position: req.body.position,
             office: req.body.office,
             salary: req.body.salary
-        });        
+        });    
         await employee.save();
         res.json({
             'status': 'Employee saved'
         });
     } catch (error) {
-        const err = '';
-        err.statusCode = 409;
-        err.message = 'Something is wrong!';
+        console.log(error);
+        const err = new Error('Something is wrong!');
+        err.http_code = 409;
         next(err);
     }
 };

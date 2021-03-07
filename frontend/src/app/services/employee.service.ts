@@ -17,11 +17,11 @@ export class EmployeeService {
   }
 
   getEmployees(){
-    return this.http.get(environment.server_api + 'employees', {headers})
+    return this.http.get(environment.server_api, {headers})
   }
   
   postEmployee(employee: Employee){
-    return this.http.post(environment.server_api, employee)
+    return this.http.post(environment.server_api, employee,{headers})
   }
 
   putEmployee(employee: Employee){
